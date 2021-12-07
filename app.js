@@ -89,17 +89,28 @@ qwerty.addEventListener('click', e => {
         let h2 = document.querySelector('h2');
         let btnText = document.querySelector('a');
         if (won === guess) {
+            let listLetter = document.querySelectorAll('.letter'); 
+            for (let i =0; i < listLetter.length; i++) {
+                allLetters = listLetter[i];
+                allLetters.style.width = '18px';
+            }
+            phrase.style.position = "relative";
+            phrase.style.bottom = "200px";
+            
+            qwerty.style.display = "none";
             overlay.style.display = 'flex'
             overlay.className = 'win';
-            h2.innerHTML ="You Won"
+            h2.innerHTML ="You Won!!!"
             btnText.innerHTML = "Play Again"    
         } 
         
         if (missed > 4) {
+            qwerty.style.display = "none";
+            phrase.style.display = 'none';
             overlay.style.display = 'flex'
             overlay.className = 'lose';
-            h2.innerHTML ="You Lose, Try Again"
-            btnText.innerHTML = "Play Again"
+            h2.innerHTML ="You Lose Dude, Try Again"
+            btnText.innerHTML = "Try Again"
         }
     }
     CheckWin();
