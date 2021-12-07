@@ -188,7 +188,7 @@ button:hover {
 }
 .win a:hover {
   transform: scale(2);
-  
+  cursor: pointer;
 }
 
 .lose {
