@@ -30,7 +30,7 @@ body {
 }
 
 li, ol, ul {
-  padding: 0;
+  padding: 2px;
   display: inline-block;
 }
 
@@ -57,6 +57,9 @@ button {
   transition: var(--transition);
 }
 
+button:hover {
+  background-color: skyblue;
+}
 
 
 .main-container {
@@ -85,11 +88,12 @@ button {
   font-size: var(--font-size-medium);
   height: 65px;
   width: 65px;
-  padding: 20px 1px 0 1px;
+  padding: 20px 5px 0 1px;
   margin-right: 2px;
   color: transparent;
   background: var(--color-neutral-light);
   border-radius: 5px;
+  
 }
 
 .space {

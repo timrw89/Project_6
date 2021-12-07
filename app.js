@@ -16,7 +16,7 @@ reset(start);
 
 // Phrases to call
 const phraseArray = [
-    'kneehigh to a grasshopper',
+    'kneehigh to a tadpole',
     'sings like a bird',
     'as big as a whale',
     'quiet as a mouse',
