@@ -2,15 +2,17 @@
 let qwerty = document.getElementById('qwerty');
 let phrase = document.getElementById('phrase');
 let start = document.querySelector('.btn__reset');
-let missed = 0;
+let missed = null;
 let overlay = document.getElementById('overlay');
 
 //hide start screen overlay
 
-start.addEventListener('click', () => {
-    overlay.style.display = 'none';
-
-});
+const reset = button => {
+    button.addEventListener('click', () => {
+        overlay.style.display = 'none';
+    });
+}
+reset(start);
 
 // Phrases to call
 const phraseArray = [
@@ -31,25 +33,22 @@ const getRandomPhraseAsArray = arr => {
     return phraseAsArray;
 }
 
-
 // console.log(getRandomPhraseAsArray(phraseArray));
 // adds the letters of a string to the display
 const addPhraseToDisplay = arr =>{
     let letters = getRandomPhraseAsArray(arr);
     let ul = document.querySelector('ul');
-    
     for (let i = 0; i < letters.length; i++){
         let li = document.createElement('li');
         li.textContent = letters[i];  
         ul.appendChild(li);
-    
         if ( letters[i] === " ") {
             li.className = "space";
         } else {
             li.className = "letter";
         }
     }   
-   }
+}
 
 addPhraseToDisplay(phraseArray);
 
@@ -62,18 +61,50 @@ const checkLetter = button => {
             phraseLetters[i].className = 'letter show';
             matchLetters = button;
         }
-    }
-    
+    } 
     return matchLetters;
-    
 } 
 
 
 qwerty.addEventListener('click', e => {
-    if (e.target.tagName === "BUTTON" & e.target.className !== "chosen") {
+    let answer = checkLetter(e.target.textContent);
+    if (e.target.tagName === "BUTTON" && e.target.className !== "chosen") {
         e.target.className = 'chosen';
-        checkLetter();
+        checkLetter(e.target.textContent);
+        
+    } if (e.target.textContent !== answer && e.target.tagName === "BUTTON" ) {
+        const li = document.querySelector('.tries');
+        ol = li.parentNode;
+        ol.removeChild(li); 
+        missed++;
+        // console.log(missed);
     }
-
+    //Check if game is won or lost and reset
+    const CheckWin = () => {
+        start.addEventListener('click', () => {
+            location.reload();
+        });
+        let won = document.querySelectorAll('.letter').length;  
+        let guess = document.querySelectorAll('.show').length;
+        let h2 = document.querySelector('h2');
+        let btnText = document.querySelector('a');
+        if (won === guess) {
+            overlay.style.display = 'flex'
+            overlay.className = 'win';
+            h2.innerHTML ="You Won"
+            btnText.innerHTML = "Play Again"    
+        } 
+        
+        if (missed > 4) {
+            overlay.style.display = 'flex'
+            overlay.className = 'lose';
+            h2.innerHTML ="You Lose, Try Again"
+            btnText.innerHTML = "Play Again"
+        }
+    }
+    CheckWin();
 });
+
+
+
 
